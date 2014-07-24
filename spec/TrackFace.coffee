@@ -14,10 +14,6 @@ describe 'TrackFace component', ->
   out_points = null
   beforeEach ->
     c = TrackFace.getComponent()
-    in_image = noflo.internalSocket.createSocket()
-    out_points = noflo.internalSocket.createSocket()
-    c.inPorts.image.attach in_image
-    c.outPorts.points.attach out_points
 
   describe 'when instantiated', ->
     it 'should have an input port', ->
@@ -25,15 +21,26 @@ describe 'TrackFace component', ->
     it 'should have an output port', ->
       chai.expect(c.outPorts.points).to.be.an 'object'
 
-  describe 'when given image', (done) ->
-    out_points.once 'data', (data) ->
-      console.log data
-      chai.expect(data).to.be.an 'array'
-      chai.expect(data.length).to.equal 80
-      done()
+  describe 'when given image', ->
+    beforeEach ->
+      in_image = noflo.internalSocket.createSocket()
+      out_points = noflo.internalSocket.createSocket()
+      c.inPorts.image.attach in_image
+      c.outPorts.points.attach out_points
 
-    # Load img and send it in
-    img = document.createElement 'img'
-    img.onload = () ->
-      in_image.send img
-    img.src = 'franck_02159.jpg'
+    it 'should find the face', (done) ->
+      out_points.once 'data', (data) ->
+        console.log data
+        chai.expect(data).to.be.an 'array'
+        chai.expect(data.length).to.equal 71
+        chai.expect(data[0].x).to.be.a 'number'
+        done()
+
+      # Load img and send it in
+      img = document.createElement 'img'
+      img.onload = () ->
+        img.width = img.naturalWidth
+        img.height = img.naturalHeight
+        console.log img
+        in_image.send img
+      img.src = 'franck_02159.jpg'

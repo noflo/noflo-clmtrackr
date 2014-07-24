@@ -1,6 +1,6 @@
 noflo = require 'noflo'
-tracker = require '../libs/clmtrackr.js'
-pModel = require '../libs/model_pca_20_svm.js'
+clm = require '../libs/clmtrackr.js'
+faceModel = require '../libs/model_pca_20_svm.js'
 
 exports.getComponent = ->
   c = new noflo.Component
@@ -12,8 +12,9 @@ exports.getComponent = ->
   c.description = 'track features in face'
 
   tracker = null
+  raf = null
   animate = () ->
-    requestAnimationFrame animate
+    raf = requestAnimationFrame animate
     if tracker
       points = tracker.getCurrentPosition()
       if points
@@ -24,26 +25,28 @@ exports.getComponent = ->
             x: point[0]
             y: point[1]
           }
-        c.outPorts.out.send points
+        c.outPorts.points.send points
 
   c.inPorts.add 'image',
     datatype: 'object'
     description: 'img, video, or canvas element'
     process: (event, payload) ->
       return unless event is 'data'
-      # c.outPorts.out.send payload
-
-      console.log 'process', event, payload
 
       # Reset if needed
       if tracker
         tracker.stop()
         tracker = null
+      if raf
+        cancelAnimationFrame raf
 
       # todo: params.stopOnConvergence for still images
       tracker = new clm.tracker()
-      tracker.init pModel
+      tracker.init faceModel
       tracker.start payload
+      raf = requestAnimationFrame animate
+
+      console.log tracker
 
   # Add output ports
   c.outPorts.add 'points',
