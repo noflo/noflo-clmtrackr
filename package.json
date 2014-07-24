@@ -1,0 +1,45 @@
+{
+  "name": "noflo-clmtrackr",
+  "description": "Noflo face feature tracking with auduno/clmtrackr",
+  "version": "0.1.0",
+  "author": {
+    "name": "auduno",
+    "email": "<>",
+    "url": "https://github.com/auduno/clmtrackr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/forresto/noflo-clmtrackr.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "undefined/blob/master/LICENSE-MIT"
+    }
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "noflo": "~0.5.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-coffeelint": "~0.0.10",
+    "grunt-cafe-mocha": "~0.1.12",
+    "chai": "~1.5.0",
+    "mocha": "~1.9.0",
+    "grunt-mocha-phantomjs": "~0.2.2",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-noflo-manifest": "~0.1.11",
+    "grunt-noflo-browser": "^0.1.1"
+  },
+  "keywords": [],
+  "noflo": {
+    "components": {
+      "TrackFace": "components/TrackFace.coffee"
+    }
+  }
+}

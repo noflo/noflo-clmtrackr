@@ -1,0 +1,25 @@
+{
+  "name": "noflo-clmtrackr",
+  "description": "Noflo face feature tracking with auduno/clmtrackr",
+  "author": "Audun Mathias Øygard <https://github.com/auduno/clmtrackr>",
+  "repo": "forresto/noflo-clmtrackr",
+  "version": "0.1.0",
+  "keywords": [],
+  "dependencies": {
+    "noflo/noflo": "*"
+  },
+  "scripts": [
+    "index.js",
+    "components/TrackFace.coffee",
+    "libs/clmtrackr.js",
+    "libs/model_pca_20_svm.js"
+  ],
+  "json": [
+    "component.json"
+  ],
+  "noflo": {
+    "components": {
+      "TrackFace": "components/TrackFace.coffee"
+    }
+  }
+}
