@@ -44,6 +44,10 @@ exports.getComponent = ->
         canvas.getContext('2d').drawImage(imageToTrack, 0, 0)
         imageToTrack = canvas
 
+      # Should be canvas or video now
+      # TODO error
+      return unless imageToTrack.tagName is 'CANVAS' or imageToTrack.tagName is 'VIDEO'
+
       # Reset if needed
       if tracker
         tracker.stop()

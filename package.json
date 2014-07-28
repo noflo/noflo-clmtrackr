@@ -39,6 +39,7 @@
   "keywords": [],
   "noflo": {
     "components": {
+      "TrackFace": "components/TrackFace.coffee"
     }
   }
 }
