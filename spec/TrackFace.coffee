@@ -32,7 +32,6 @@ describe 'TrackFace component', ->
       @timeout 3000
 
       out_points.once 'data', (data) ->
-        console.log data
         chai.expect(data).to.be.an 'array'
         chai.expect(data.length).to.equal 71
         chai.expect(data[0].x).to.be.a 'number'
@@ -48,6 +47,5 @@ describe 'TrackFace component', ->
       img.onload = () ->
         img.width = img.naturalWidth
         img.height = img.naturalHeight
-        console.log img
         in_image.send img
       img.src = 'franck_02159.jpg'

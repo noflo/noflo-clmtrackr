@@ -12,14 +12,16 @@
     "index.js",
     "components/TrackFace.coffee",
     "libs/clmtrackr.js",
-    "libs/model_pca_20_svm.js"
+    "libs/model_pca_20_svm.js",
+    "components/WireframeFace.coffee"
   ],
   "json": [
     "component.json"
   ],
   "noflo": {
     "components": {
-      "TrackFace": "components/TrackFace.coffee"
+      "TrackFace": "components/TrackFace.coffee",
+      "WireframeFace": "components/WireframeFace.coffee"
     }
   }
 }

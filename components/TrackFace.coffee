@@ -6,11 +6,7 @@ pModel = require '../libs/model_pca_20_svm.js'
 
 exports.getComponent = ->
   c = new noflo.Component
-
-  # Define a meaningful icon for component from http://fontawesome.io/icons/
   c.icon = 'meh-o'
-
-  # Provide a description on component usage
   c.description = 'track features in face'
 
   tracker = null
