@@ -36,10 +36,5 @@
     "grunt-noflo-manifest": "~0.1.11",
     "grunt-noflo-browser": "^0.1.1"
   },
-  "keywords": [],
-  "noflo": {
-    "components": {
-      "TrackFace": "components/TrackFace.coffee"
-    }
-  }
+  "keywords": []
 }

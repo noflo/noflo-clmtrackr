@@ -1,3 +1,5 @@
+# @runtime noflo-browser
+
 noflo = require 'noflo'
 clm = require '../libs/clmtrackr.js'
 pModel = require '../libs/model_pca_20_svm.js'
