@@ -1,6 +1,6 @@
 noflo = require 'noflo'
 clm = require '../libs/clmtrackr.js'
-faceModel = require '../libs/model_pca_20_svm.js'
+pModel = require '../libs/model_pca_20_svm.js'
 
 exports.getComponent = ->
   c = new noflo.Component
@@ -33,20 +33,30 @@ exports.getComponent = ->
     process: (event, payload) ->
       return unless event is 'data'
 
+      imageToTrack = payload
+      return unless imageToTrack.tagName?
+      # Clmtrackr needs canvas or video
+      if imageToTrack.tagName is 'IMG'
+        # Convert img to canvas
+        canvas = document.createElement('canvas')
+        canvas.width = imageToTrack.width
+        canvas.height = imageToTrack.height
+        canvas.getContext('2d').drawImage(imageToTrack, 0, 0)
+        imageToTrack = canvas
+
       # Reset if needed
       if tracker
         tracker.stop()
+        tracker.reset()
         tracker = null
       if raf
         cancelAnimationFrame raf
 
       # todo: params.stopOnConvergence for still images
       tracker = new clm.tracker()
-      tracker.init faceModel
-      tracker.start payload
+      tracker.init pModel
+      tracker.start imageToTrack
       raf = requestAnimationFrame animate
-
-      console.log tracker
 
   # Add output ports
   c.outPorts.add 'points',

@@ -29,11 +29,18 @@ describe 'TrackFace component', ->
       c.outPorts.points.attach out_points
 
     it 'should find the face', (done) ->
+      @timeout 3000
+
       out_points.once 'data', (data) ->
         console.log data
         chai.expect(data).to.be.an 'array'
         chai.expect(data.length).to.equal 71
         chai.expect(data[0].x).to.be.a 'number'
+        chai.expect(data[0].x).to.be.greaterThan 294
+        chai.expect(data[0].x).to.be.lessThan 295
+        chai.expect(data[0].y).to.be.a 'number'
+        chai.expect(data[0].y).to.be.greaterThan 280
+        chai.expect(data[0].y).to.be.lessThan 281
         done()
 
       # Load img and send it in

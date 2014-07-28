@@ -13,6 +13,88 @@
 "use strict";
 //requires: ccv.js, numeric.js
 
+
+/*
+
+utils.js
+
+*/
+
+// helper functions
+
+/**
+ * Provides requestAnimationFrame in a cross browser way.
+ */
+window.requestAnimFrame = (function() {
+  return window.requestAnimationFrame ||
+         window.webkitRequestAnimationFrame ||
+         window.mozRequestAnimationFrame ||
+         window.oRequestAnimationFrame ||
+         window.msRequestAnimationFrame ||
+         function(/* function FrameRequestCallback */ callback, /* DOMElement Element */ element) {
+           return window.setTimeout(callback, 1000/60);
+         };
+})();
+
+/**
+ * Provides cancelRequestAnimationFrame in a cross browser way.
+ */
+window.cancelRequestAnimFrame = (function() {
+  return window.cancelAnimationFrame ||
+         window.webkitCancelRequestAnimationFrame ||
+         window.mozCancelRequestAnimationFrame ||
+         window.oCancelRequestAnimationFrame ||
+         window.msCancelRequestAnimationFrame ||
+         window.clearTimeout;
+})();
+
+// video support utility functions
+function supports_video() {
+  return !!document.createElement('video').canPlayType;
+}
+
+function supports_h264_baseline_video() {
+  if (!supports_video()) { return false; }
+  var v = document.createElement("video");
+  return v.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"');
+}
+
+function supports_ogg_theora_video() {
+  if (!supports_video()) { return false; }
+  var v = document.createElement("video");
+  return v.canPlayType('video/ogg; codecs="theora, vorbis"');
+}
+
+
+
+
+
+
+
+
+
+/*
+
+clmtrackr.js
+
+*/
+
+
+/**
+ * clmtrackr library (https://www.github.com/auduno/clmtrackr/)
+ *
+ * Copyright (c) 2013, Audun Mathias Øygard
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+"use strict";
+//requires: ccv.js, numeric.js
+
 var clm = {
   tracker : function(params) {
     
@@ -1332,7 +1414,7 @@ var clm = {
     })();
     
     var cancelRequestAnimFrame = (function() {
-      return window.cancelAnimationFrame ||
+      return window.cancelCancelRequestAnimationFrame ||
         window.webkitCancelRequestAnimationFrame ||
         window.mozCancelRequestAnimationFrame ||
         window.oCancelRequestAnimationFrame ||
@@ -3832,6 +3914,7 @@ numeric.dotVM = function dotVM(x,y) {
 }
 
 numeric.dotVV = function dotVV(x,y) {
+    if (!x || !y) return;
     var i,n=x.length,i1,ret = x[n-1]*y[n-1];
     for(i=n-2;i>=1;i-=2) {
         i1 = i-1;
@@ -4167,14 +4250,18 @@ numeric.inv = function inv(x) {
         var v0 = -1;
         for(i=j;i!==m;++i) { k = abs(A[i][j]); if(k>v0) { i0 = i; v0 = k; } }
         Aj = A[i0]; A[i0] = A[j]; A[j] = Aj;
+        if (!Aj) continue;
         Ij = I[i0]; I[i0] = I[j]; I[j] = Ij;
+        if (!Ij) continue;
         x = Aj[j];
         for(k=j;k!==n;++k)    Aj[k] /= x; 
         for(k=n-1;k!==-1;--k) Ij[k] /= x;
         for(i=m-1;i!==-1;--i) {
             if(i!==j) {
                 Ai = A[i];
+                if (!Ai) continue;
                 Ii = I[i];
+                if (!Ii) continue;
                 x = Ai[j];
                 for(k=j+1;k!==n;++k)  Ai[k] -= Aj[k]*x;
                 for(k=n-1;k>0;--k) { Ii[k] -= Ij[k]*x; --k; Ii[k] -= Ij[k]*x; }
@@ -8589,6 +8676,11 @@ function FFT() {
     }
   }
 }
+
+
+
+
+
 
 
 
