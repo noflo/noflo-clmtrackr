@@ -11,8 +11,8 @@ exports.getComponent = ->
 
   tracker = null
   raf = null
-  animate = () ->
-    raf = requestAnimationFrame animate
+  trackFaceLoop = () ->
+    raf = requestAnimationFrame trackFaceLoop
     if tracker
       points = tracker.getCurrentPosition()
       if points
@@ -24,6 +24,7 @@ exports.getComponent = ->
             y: point[1]
           }
         c.outPorts.points.send points
+        lastPoints = points
 
   c.inPorts.add 'image',
     datatype: 'object'
@@ -58,7 +59,7 @@ exports.getComponent = ->
       tracker = new clm.tracker()
       tracker.init pModel
       tracker.start imageToTrack
-      raf = requestAnimationFrame animate
+      raf = requestAnimationFrame trackFaceLoop
 
   # Add output ports
   c.outPorts.add 'points',

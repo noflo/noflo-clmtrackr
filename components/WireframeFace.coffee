@@ -18,7 +18,6 @@ exports.getComponent = ->
       return unless event is 'data'
       paths = []
       for tri in wireframe
-        console.log tri
         path =
           type: 'path'
           items: [
