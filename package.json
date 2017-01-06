@@ -21,20 +21,20 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "noflo": "~0.5.0"
+    "noflo": "~0.7.9"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-coffee": "~0.10.1",
+    "grunt": "~1.0.1",
+    "grunt-contrib-coffee": "~1.0.0",
     "grunt-coffeelint": "~0.0.10",
     "grunt-cafe-mocha": "~0.1.12",
-    "chai": "~1.5.0",
-    "mocha": "~1.9.0",
-    "grunt-mocha-phantomjs": "~0.2.2",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-watch": "~0.3.1",
+    "chai": "~3.5.0",
+    "mocha": "~3.2.0",
+    "grunt-mocha-phantomjs": "~4.0.0",
+    "grunt-contrib-uglify": "~2.0.0",
+    "grunt-contrib-watch": "~1.0.0",
     "grunt-noflo-manifest": "~0.1.11",
-    "grunt-noflo-browser": "^0.1.1"
+    "grunt-noflo-browser": "^1.1.1"
   },
   "keywords": []
 }
