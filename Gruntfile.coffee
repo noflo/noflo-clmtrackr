@@ -41,6 +41,12 @@ module.exports = ->
       tasks: ['test']
 
     # BDD tests on browser
+    noflo_browser_mocha:
+      all:
+        options:
+          scripts: ["../browser/<%=pkg.name%>.js"]
+        files:
+          'spec/runner.html': ['spec/*.js']
     mocha_phantomjs:
       options:
         output: 'spec/result.xml'
@@ -79,6 +85,7 @@ module.exports = ->
     @task.run 'noflo_manifest'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
+      @task.run 'noflo_browser_mocha'
       @task.run 'mocha_phantomjs'
 
   @registerTask 'default', ['test']
