@@ -1,9 +1,10 @@
 noflo = require 'noflo'
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  TrackFace = require '../components/TrackFace.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  TrackFace = require 'noflo-clmtrackr/components/TrackFace.js'
+  baseDir = 'noflo-clmtrackr'
 
 describe 'TrackFace component', ->
   # Browser-only for now, uses WebGL
@@ -12,8 +13,15 @@ describe 'TrackFace component', ->
   c = null
   in_image = null
   out_points = null
-  beforeEach ->
-    c = TrackFace.getComponent()
+  loader = null
+  before ->
+    loader = new noflo.ComponentLoader baseDir
+  beforeEach (done) ->
+    @timeout 4000
+    loader.load 'clmtrackr/TrackFace', (err, instance) ->
+      return done err if err
+      c = instance
+      done()
 
   describe 'when instantiated', ->
     it 'should have an input port', ->
@@ -35,10 +43,10 @@ describe 'TrackFace component', ->
         chai.expect(data).to.be.an 'array'
         chai.expect(data.length).to.equal 71
         chai.expect(data[0].x).to.be.a 'number'
-        chai.expect(data[0].x).to.be.greaterThan 294
+        chai.expect(data[0].x).to.be.greaterThan 283
         chai.expect(data[0].x).to.be.lessThan 295
         chai.expect(data[0].y).to.be.a 'number'
-        chai.expect(data[0].y).to.be.greaterThan 280
+        chai.expect(data[0].y).to.be.greaterThan 279
         chai.expect(data[0].y).to.be.lessThan 281
         done()
 
