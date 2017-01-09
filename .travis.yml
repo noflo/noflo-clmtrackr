@@ -1,5 +1,13 @@
 language: node_js
 node_js:
-  - '4.6'
+- '4.6'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: CTKYpjQkrgpcf0HPRI6rrKZJgINpy4RPdWtV5H6aXhRBlygc9XmUR2JG1ydBHgO+YEBq7Epz15Sq35xaKyJ+TXL6gHAdK92XTX+I2jm2bRneKIfnSHXrvWTQwXITd+cmkQ+pGMKbatL+7zCxLJcqWMYMKpqDMrEFrmVLAv/Xqyk=
+  on:
+    tags: true
+    repo: noflo/noflo-clmtrackr
