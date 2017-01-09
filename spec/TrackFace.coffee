@@ -43,10 +43,10 @@ describe 'TrackFace component', ->
         chai.expect(data).to.be.an 'array'
         chai.expect(data.length).to.equal 71
         chai.expect(data[0].x).to.be.a 'number'
-        chai.expect(data[0].x).to.be.greaterThan 294
+        chai.expect(data[0].x).to.be.greaterThan 283
         chai.expect(data[0].x).to.be.lessThan 295
         chai.expect(data[0].y).to.be.a 'number'
-        chai.expect(data[0].y).to.be.greaterThan 280
+        chai.expect(data[0].y).to.be.greaterThan 279
         chai.expect(data[0].y).to.be.lessThan 281
         done()
 

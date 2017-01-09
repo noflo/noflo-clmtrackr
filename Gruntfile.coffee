@@ -40,6 +40,11 @@ module.exports = ->
       files: ['spec/*.coffee', 'components/*.coffee']
       tasks: ['test']
 
+    # Web server for the browser tests
+    connect:
+      server:
+        options:
+          port: 8000
     # BDD tests on browser
     noflo_browser_mocha:
       all:
@@ -48,10 +53,12 @@ module.exports = ->
         files:
           'spec/runner.html': ['spec/*.js']
     mocha_phantomjs:
-      options:
-        output: 'spec/result.xml'
-        reporter: 'spec'
-      all: ['spec/runner.html']
+      all:
+        options:
+          output: 'spec/result.xml'
+          reporter: 'spec'
+          urls: ['http://localhost:8000/spec/runner.html']
+          failWithOutput: true
 
     # Coding standards
     coffeelint:
@@ -68,6 +75,7 @@ module.exports = ->
 
   # Grunt plugins used for testing
   @loadNpmTasks 'grunt-contrib-watch'
+  @loadNpmTasks 'grunt-contrib-connect'
   @loadNpmTasks 'grunt-mocha-phantomjs'
   @loadNpmTasks 'grunt-coffeelint'
 
@@ -86,6 +94,7 @@ module.exports = ->
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
       @task.run 'noflo_browser_mocha'
+      @task.run 'connect'
       @task.run 'mocha_phantomjs'
 
   @registerTask 'default', ['test']
