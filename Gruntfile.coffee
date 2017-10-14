@@ -3,13 +3,6 @@ module.exports = ->
   @initConfig
     pkg: @file.readJSON 'package.json'
 
-    # Updating the package manifest files
-    noflo_manifest:
-      update:
-        files:
-          'component.json': ['graphs/*', 'components/*']
-          'package.json': ['graphs/*', 'components/*']
-
     # CoffeeScript compilation of tests
     coffee:
       spec:
@@ -25,7 +18,7 @@ module.exports = ->
     noflo_browser:
       build:
         files:
-          'browser/noflo-clmtrackr.js': ['component.json']
+          'browser/noflo-clmtrackr.js': ['package.json']
 
     # JavaScript minification for the browser
     uglify:
@@ -69,7 +62,6 @@ module.exports = ->
 
   # Grunt plugins used for building
   @loadNpmTasks 'grunt-contrib-coffee'
-  @loadNpmTasks 'grunt-noflo-manifest'
   @loadNpmTasks 'grunt-noflo-browser'
   @loadNpmTasks 'grunt-contrib-uglify'
 
@@ -82,7 +74,6 @@ module.exports = ->
   # Our local tasks
   @registerTask 'build', 'Build NoFlo for the chosen target platform', (target = 'all') =>
     @task.run 'coffee'
-    @task.run 'noflo_manifest'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
       @task.run 'uglify'
@@ -90,7 +81,6 @@ module.exports = ->
   @registerTask 'test', 'Build NoFlo and run automated tests', (target = 'all') =>
     @task.run 'coffeelint'
     @task.run 'coffee'
-    @task.run 'noflo_manifest'
     if target is 'all' or target is 'browser'
       @task.run 'noflo_browser'
       @task.run 'noflo_browser_mocha'
