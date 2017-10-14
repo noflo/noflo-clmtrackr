@@ -14,23 +14,22 @@ exports.getComponent = ->
   c.inPorts.add 'points',
     datatype: 'array'
     description: 'points from TrackFace'
-    process: (event, payload) ->
-      return unless event is 'data'
-      paths = []
-      for tri in wireframe
-        path =
-          type: 'path'
-          items: [
-            payload[tri[0]]
-            payload[tri[1]]
-            payload[tri[2]]
-          ]
-        paths.push path
-
-      c.outPorts.paths.send paths
-
   c.outPorts.add 'paths',
     datatype: 'array'
 
-  # Finally return the component instance
-  return c
+  c.process (input, output) ->
+    return unless input.hasData 'points'
+    payload = input.getData 'points'
+    paths = []
+    for tri in wireframe
+      path =
+        type: 'path'
+        items: [
+          payload[tri[0]]
+          payload[tri[1]]
+          payload[tri[2]]
+        ]
+      paths.push path
+
+    output.sendDone
+      paths: paths
