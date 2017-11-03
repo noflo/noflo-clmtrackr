@@ -16,22 +16,18 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "noflo": "0.x >= 0.8"
+    "noflo": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.12.2",
-    "fbp-loader": "^0.1.1",
     "grunt": "^1.0.1",
     "grunt-coffeelint": "^0.0.16",
-    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-coffee": "^2.0.0",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-uglify": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-phantomjs": "^4.0.0",
-    "grunt-noflo-browser": "^1.1.1",
-    "json-loader": "^0.5.4",
+    "grunt-noflo-browser": "^1.5.0",
     "mocha": "^4.0.1"
   },
   "keywords": [
