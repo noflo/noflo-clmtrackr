@@ -27,7 +27,7 @@
     "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-phantomjs": "^4.0.0",
     "grunt-noflo-browser": "^1.5.0",
-    "mocha": "^6.0.0"
+    "mocha": "^7.0.1"
   },
   "keywords": [
     "noflo"
